@@ -1,45 +1,75 @@
 package com.aufgabe.danyil.test.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "tasks")
 public class Task {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String description;
-    private boolean completed;
 
-    public Task(Long id, String title, String description){
-        this.id = id;
+    @Column(nullable = false)
+    @NotBlank(message = "Title can not be empty")
+    @Size(max = 255, message = "Max title length 255 symbols")
+    private String title;
+
+    @Column(columnDefinition = "TEXT")
+    @Size(max = 1000, message = "Max description size - 1000 symbols")
+    private String descriptions;
+
+    @Column(nullable = false)
+    private Boolean completed = false;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    public Task() {
+    }
+
+    public Task(String title, String descriptions, Long userId) {
         this.title = title;
-        this.description = description;
+        this.descriptions = descriptions;
+        this.userId = userId;
         this.completed = false;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() {return title;}
+    public void setTitle(String title) {this.title = title;}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getDescription() {return descriptions;}
+    public void setDescription(String descriptions) {this.descriptions = descriptions;}
 
-    public String getDescription() {
-        return description;
-    }
+    public Boolean getCompleted() {return completed;}
+    public void setCompleted(Boolean completed) {this.completed = completed;}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public LocalDateTime getCreatedAt() {return createdAt;}
+    public void setCreatedAt(LocalDateTime createdAt) {this.createdAt = createdAt;}
 
-    public boolean isCompleted() {
-        return completed;
-    }
+    public LocalDateTime getUpdatedAt() {return updatedAt;}
+    public void setUpdatedAt(LocalDateTime updatedAt) {this.updatedAt = updatedAt;}
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
+    public Long getUserId() {return userId;}
+    public void setUserId(Long userId) {this.userId = userId;}
 }
 

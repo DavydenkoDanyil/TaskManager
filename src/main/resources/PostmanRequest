@@ -1,0 +1,53 @@
+
+// registration user (POST)
+http:/localhost:8080/api/auth/register
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+
+// login
+http:/localhost:8080/api/auth/login
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+// Creating Tasks (POST)
+http://localhost:8080/api/tasks
+Header:
+Content-Type: application/json
+Authorization: Bearer <your_jwt_token>
+{
+  "title": "Learn Spring",
+  "description": "Learn Spring Boost and make REST API"
+}
+
+// Take all tasks with pagination
+GET http://localhost:8080/api/tasks?page=0&size=5&sortBy=createdAt&sortDir=desc
+Authorization: Bearer YOUR_JWT_TOKEN
+
+// Take tasks from ID
+GET http://localhost:8080/api/tasks/1
+Authorization: Bearer YOUR_JWT_TOKEN
+
+
+// Update Task
+PUT http://localhost:8080/api/tasks/1
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN
+
+{
+  "title": "Изучить Spring Boot - обновлено",
+  "description": "Пройти курс по Spring Boot, создать REST API и добавить тесты",
+  "completed": false
+}
+
+//Mark Complated
+PATCH http://localhost:8080/api/tasks/1/complete
+Authorization: Bearer YOUR_JWT_TOKEN
+
+//Mark uncomplated
+PATCH http://localhost:8080/api/tasks/1/incomplete
+Authorization: Bearer YOUR_JWT_TOKEN
