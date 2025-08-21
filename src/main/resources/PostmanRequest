@@ -44,10 +44,10 @@ Authorization: Bearer YOUR_JWT_TOKEN
   "completed": false
 }
 
-//Mark Complated
+//Mark Complate
 PATCH http://localhost:8080/api/tasks/1/complete
 Authorization: Bearer YOUR_JWT_TOKEN
 
-//Mark uncomplated
+//Mark incomplate
 PATCH http://localhost:8080/api/tasks/1/incomplete
 Authorization: Bearer YOUR_JWT_TOKEN

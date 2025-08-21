@@ -91,8 +91,8 @@ public class TaskService {
             task.setDescription(request.getDescription());
         }
 
-        if (request.getCompleted() != null) {
-            task.setCompleted(request.getCompleted());
+        if (request.getIsCompleted() != null) {
+            task.setCompleted(request.getIsCompleted());
         }
 
         Task updatedTask = taskRepository.save(task);

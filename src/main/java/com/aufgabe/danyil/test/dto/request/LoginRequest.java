@@ -5,12 +5,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class LoginRequest {
-    @NotBlank(message = "Can not be empty")
+    @NotBlank(message = "Email cannot be empty")
     @Email(message = "Incorrect format")
     private String email;
 
-    @NotBlank(message = "Can not be empty")
-    @Size(min = 6, message = "Minimal password size - 6 symbol")
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 6, message = "Minimum password length is 6 characters")
     private String password;
 
     public LoginRequest(){}

@@ -60,8 +60,7 @@ public class TaskController {
     }
 
     /**
-     * Search for tasks
-     * GET /api/tasks/search?q=задача&page=0&size=5
+     * Search for task
      */
     @GetMapping("/search")
     public ResponseEntity<PagedTaskResponse> searchTasks(

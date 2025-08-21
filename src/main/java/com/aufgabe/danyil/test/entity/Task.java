@@ -15,12 +15,12 @@ public class Task {
     private Long id;
 
     @Column(nullable = false)
-    @NotBlank(message = "Title can not be empty")
-    @Size(max = 255, message = "Max title length 255 symbols")
+    @NotBlank(message = "The title must not be empty")
+    @Size(max = 255, message = "The maximum text length is 255 characters.")
     private String title;
 
     @Column(columnDefinition = "TEXT")
-    @Size(max = 1000, message = "Max description size - 1000 symbols")
+    @Size(max = 1000, message = "The maximum text length is 1000 characters.")
     private String descriptions;
 
     @Column(nullable = false)

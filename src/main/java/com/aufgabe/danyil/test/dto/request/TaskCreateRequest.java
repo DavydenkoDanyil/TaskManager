@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public class TaskCreateRequest {
 
-    @NotBlank(message = "Task title cannot be empty")
+    @NotBlank(message = "The title must not be empty")
     @Size(max = 255, message = "The title must not exceed 255 characters.")
     private String title;
 
