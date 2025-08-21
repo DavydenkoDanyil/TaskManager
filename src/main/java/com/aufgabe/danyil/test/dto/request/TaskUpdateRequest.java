@@ -10,14 +10,14 @@ public class TaskUpdateRequest {
     @Size(max = 1000, message = "The description must not exceed 1000 characters.")
     private String description;
 
-    private Boolean isCompleted;
+    private Boolean completed;
 
     public TaskUpdateRequest() {}
 
-    public TaskUpdateRequest(String title, String description, Boolean isCompleted) {
+    public TaskUpdateRequest(String title, String description, Boolean completed) {
         this.title = title;
         this.description = description;
-        this.isCompleted = isCompleted;
+        this.completed = completed;
     }
 
     public String getTitle() { return title; }
@@ -26,6 +26,6 @@ public class TaskUpdateRequest {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public Boolean getIsCompleted() { return isCompleted; }
-    public void setIsCompleted(Boolean isCompleted) { this.isCompleted = isCompleted; }
+    public Boolean getCompleted() { return completed; }
+    public void setCompleted(Boolean completed) { this.completed = completed; }
 }

@@ -51,3 +51,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 //Mark incomplate
 PATCH http://localhost:8080/api/tasks/1/incomplete
 Authorization: Bearer YOUR_JWT_TOKEN
+
+// Delete task
+DELETE {{baseUrl}}/api/tasks/1
+Authorization: Bearer {{token}}

@@ -10,6 +10,7 @@ public class TaskResponse {
     private String title;
     private String description;
     private Boolean completed;
+    private String category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long userId;
@@ -23,6 +24,7 @@ public class TaskResponse {
         this.completed = task.getCompleted();
         this.createdAt = task.getCreatedAt();
         this.updatedAt = task.getUpdatedAt();
+        this.category = task.getCategory();
         this.userId = task.getUserId();
     }
 
@@ -46,4 +48,7 @@ public class TaskResponse {
 
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
+
+    public String getCategory() {return category;}
+    public void setCategory(String category) {this.category = category;}
 }

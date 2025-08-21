@@ -12,11 +12,15 @@ public class TaskCreateRequest {
     @Size(max = 1000, message = "The description must not exceed 1000 characters.")
     private String description;
 
+    @Size(max = 48, message = "The category must not exceed 48 characters.")
+    private String category;
+
     public TaskCreateRequest() {}
 
-    public TaskCreateRequest(String title, String description) {
+    public TaskCreateRequest(String title, String description, String category) {
         this.title = title;
         this.description = description;
+        this.category = category;
     }
 
     public String getTitle() { return title; }
@@ -24,4 +28,7 @@ public class TaskCreateRequest {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getCategory() {return category;}
+    public void setCategory(String category) {this.category = category;}
 }

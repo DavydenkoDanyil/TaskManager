@@ -74,6 +74,19 @@ public class TaskController {
         return ResponseEntity.ok(response);
     }
 
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<PagedTaskResponse> getTaskByCategory(
+            @PathVariable String category,
+            @RequestParam(value = "q", required = false) String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            Authentication authentication) {
+        Long userId = getUserIdFromAuthentication(authentication);
+        PagedTaskResponse response = taskService.getTasksByCategory(userId, category, page, size);
+        return ResponseEntity.ok(response);
+    }
+
     /**
      * Get task by ID
      * GET /api/tasks/1
@@ -81,6 +94,7 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponse> getTaskById(
             @PathVariable Long id,
+
             Authentication authentication) {
 
         Long userId = getUserIdFromAuthentication(authentication);

@@ -16,6 +16,10 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
 
+    Page<Task> findByUserIdAndCategory(Long userId, String category, Pageable pageable);
+
+    Page<Task> findByUserIdAndCategoryOrderByCreatedAtDesc(Long userId, String category, Pageable pageable);
+
     Page<Task> findByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);
 
     Optional<Task> findByIdAndUserId(Long id, Long userId);

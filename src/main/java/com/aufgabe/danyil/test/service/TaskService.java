@@ -57,10 +57,16 @@ public class TaskService {
         return mapToPagedResponse(taskPage);
     }
 
+    public PagedTaskResponse getTasksByCategory(Long userId, String category, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Task> taskPage = taskRepository.findByUserIdAndCategoryOrderByCreatedAtDesc(userId, category, pageable);
+
+        return mapToPagedResponse(taskPage);
+    }
 
     public TaskResponse getTaskById(Long taskId, Long userId) {
         Task task = taskRepository.findByIdAndUserId(taskId, userId)
-                .orElseThrow(() -> new TaskNotFoundException("Task not found" + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
 
         return new TaskResponse(task);
     }
@@ -70,6 +76,7 @@ public class TaskService {
         Task task = new Task();
         task.setTitle(request.getTitle());
         task.setDescription(request.getDescription());
+        task.setCategory(request.getCategory());
         task.setUserId(userId);
         task.setCompleted(false);
 
@@ -80,9 +87,9 @@ public class TaskService {
 
     public TaskResponse updateTask(Long taskId, TaskUpdateRequest request, Long userId) {
         Task task = taskRepository.findByIdAndUserId(taskId, userId)
-                .orElseThrow(() -> new TaskNotFoundException("Задача не найдена с ID: " + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
 
-        // Обновляем только переданные поля
+
         if (request.getTitle() != null && !request.getTitle().trim().isEmpty()) {
             task.setTitle(request.getTitle());
         }
@@ -91,8 +98,8 @@ public class TaskService {
             task.setDescription(request.getDescription());
         }
 
-        if (request.getIsCompleted() != null) {
-            task.setCompleted(request.getIsCompleted());
+        if (request.getCompleted() != null) {
+            task.setCompleted(request.getCompleted());
         }
 
         Task updatedTask = taskRepository.save(task);
@@ -102,7 +109,7 @@ public class TaskService {
 
     public TaskResponse markTaskAsCompleted(Long taskId, Long userId) {
         Task task = taskRepository.findByIdAndUserId(taskId, userId)
-                .orElseThrow(() -> new TaskNotFoundException("Задача не найдена с ID: " + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
 
         task.setCompleted(true);
         Task updatedTask = taskRepository.save(task);
@@ -112,7 +119,7 @@ public class TaskService {
 
     public TaskResponse markTaskAsIncomplete(Long taskId, Long userId) {
         Task task = taskRepository.findByIdAndUserId(taskId, userId)
-                .orElseThrow(() -> new TaskNotFoundException("Задача не найдена с ID: " + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
 
         task.setCompleted(false);
         Task updatedTask = taskRepository.save(task);
@@ -122,7 +129,7 @@ public class TaskService {
 
     public void deleteTask(Long taskId, Long userId) {
         Task task = taskRepository.findByIdAndUserId(taskId, userId)
-                .orElseThrow(() -> new TaskNotFoundException("Задача не найдена с ID: " + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with ID: " + taskId));
 
         taskRepository.delete(task);
     }
@@ -165,8 +172,16 @@ public class TaskService {
             this.pendingTasks = pendingTasks;
         }
 
-        public long getTotalTasks() { return totalTasks; }
-        public long getCompletedTasks() { return completedTasks; }
-        public long getPendingTasks() { return pendingTasks; }
+        public long getTotalTasks() {
+            return totalTasks;
+        }
+
+        public long getCompletedTasks() {
+            return completedTasks;
+        }
+
+        public long getPendingTasks() {
+            return pendingTasks;
+        }
     }
 }

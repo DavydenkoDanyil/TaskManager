@@ -32,6 +32,9 @@ public class Task {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "category")
+    private String category;
+
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
@@ -44,11 +47,12 @@ public class Task {
     public Task() {
     }
 
-    public Task(String title, String descriptions, Long userId) {
+    public Task(String title, String descriptions, Long userId, String category) {
         this.title = title;
         this.descriptions = descriptions;
         this.userId = userId;
         this.completed = false;
+        this.category = category;
     }
 
     public Long getId() {return id;}
@@ -71,5 +75,8 @@ public class Task {
 
     public Long getUserId() {return userId;}
     public void setUserId(Long userId) {this.userId = userId;}
+
+    public String getCategory() {return category;}
+    public void setCategory(String category) {this.category = category;}
 }
 
